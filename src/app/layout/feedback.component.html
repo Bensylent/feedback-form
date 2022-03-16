@@ -1,0 +1,186 @@
+<nav class="navbar navbar-light bg-primary">
+  <div class ="container-fluid">
+    <h1 style="color: aliceblue;">
+BI Feedback Form 
+    </h1>
+    <div class ="d-flex">
+      <button type="button" 
+      class="btn btn-primary"
+      (click)="openPopup()" class="btn btn-success">Add Feedback</button>
+    </div>
+  </div>
+</nav>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td scope="col">Feedback Id</td>
+      <td scope="col">Frequency</td>
+      <td scope="col">Department</td>
+      <td scope="col">Report Type</td>
+      <td scope="col">Level of Satisfaction</td>
+      <td scope="col">Comments</td>
+    
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of feedBackData" >
+      <td>{{row.id}}</td>
+      <td>{{row.frequency}}</td>
+      <td>{{row.department}}</td>
+      <td>{{row.reportType}}</td>
+      <td>{{row.satisfaction}}</td>
+      <td>{{row.comments}}</td>
+      <td>
+        <button class="btn btn-info" (click)="onEdit(row)">Update</button>
+        <button class="btn btn-danger mx-3" (click)="deleteFeedbackData(row)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<div
+class="modal"
+tabindex="-1"
+role="dialog"
+[ngStyle]="{'display':displayStyle}">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title">Add Feedback</h4>
+	</div>
+	<div class="modal-body" style="overflow:hidden;">
+		
+
+
+
+    <form [formGroup] = "feedbackForm">
+      <div class="form-group">
+        <label for="exampleInputEmail1">How often do you use Paynow Reporting Per week</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault1" value="Once" formControlName="frequency">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Once
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio"  id="flexRadioDefault2" value="Twice" formControlName="frequency">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Twice
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault2" value="Thrice" formControlName="frequency">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Thrice
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault2" value="More" formControlName="frequency">
+          <label class="form-check-label" for="flexRadioDefault2">
+            More
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault2" value="Rarely" formControlName="frequency">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Rarely
+          </label>
+        </div>
+      </div>
+<br>
+<div class="form-group">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Department</mat-label>
+     <mat-select [(value)]="selectedValue">
+       <mat-option value ="Marketing">Marketing</mat-option>
+       <mat-option value ="Client Success">Client Success</mat-option>
+       <mat-option value ="Business Development">Business Development</mat-option>
+       <mat-option value ="Sales">Sales</mat-option>
+       <mat-option value ="Contact Center">Contact Center</mat-option>
+       <mat-option value ="Development Team">Development Team</mat-option>
+       <mat-option value ="MD Office">MD Office</mat-option>
+       <mat-option value ="Technical Operations">Technical Operations</mat-option>
+       <mat-option value ="Finance Operations">Finance Operations</mat-option>
+     </mat-select>
+   </mat-form-field>
+ </div>
+
+      <br>
+      <div class="form-group">
+        <label for="department">Which reports do you mainly use</label>
+       
+        <div class="form-check" *ngFor="let cat of categories">
+          <input class="form-check-input" (change)="onChange($event, cat.name)"name="{{ cat.name }}" type="checkbox" id="{{cat.name}}">
+          <label class="form-check-label" for="{{cat.name}}">
+              {{cat.name}}
+          </label>
+      </div>
+  
+        
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">How Satisfied are you with the service</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault1" value="Not Satisfied" formControlName="satisfaction">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Not Satisfied
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault2" value="Neutral" formControlName="satisfaction">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Neutral
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="flexRadioDefault2" value="Satisfied" formControlName="satisfaction">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Satisfied
+          </label>
+        </div>
+   
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Any other comments</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="comments"></textarea>
+      </div>
+
+
+      
+
+    </form>
+
+
+
+    
+
+	</div>
+
+	<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="updateFeedbackDetails()" >
+      Update Feedback
+      </button>
+		<button type="submit" class="btn btn-primary" (click)="postFeedbackDetails()" >
+		Add Feedback
+		</button>
+    <button type="button" class="btn btn-danger"
+				(click)="closePopup()">
+		Close
+		</button>
+	</div>
+	</div>
+</div>
+</div>
+
+<router-outlet></router-outlet>
