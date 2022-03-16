@@ -1,4 +1,5 @@
 # ProjectOne
+This is a simple frontend CRUD application developed in Angular framework. It is connected to a fastAPI angular backend feedback-form-backend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
 
