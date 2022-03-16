@@ -10,28 +10,29 @@ export class FeedbackService {
   constructor(private http:HttpClient) { }
 
   postFeedback(data:any){
-    return this.http.post<any>("http://127.0.0.1:8000/feedbacks", data)
+    //return this.http.post<any>("http://127.0.0.1:8000/feedbacks", data)
+    return this.http.post<any>("https://feedback-form-backend.herokuapp.com/feedbacks", data)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   getFeedback(){
-    return this.http.get("http://127.0.0.1:8000/feedbacks")
+    return this.http.get("https://feedback-form-backend.herokuapp.com/feedbacks")
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   deleteFeedback(id:number){
-    return this.http.delete<any>("http://127.0.0.1:8000/feedbacks/"+id)
+    return this.http.delete<any>("https://feedback-form-backend.herokuapp.com/feedbacks/"+id)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   updateFeedback(data:any,id:number){
-    return this.http.put<any>("http://127.0.0.1:8000/feedbacks/"+id,data)
+    return this.http.put<any>("https://feedback-form-backend.herokuapp.com/feedbacks/"+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))
