@@ -10,7 +10,6 @@ export class FeedbackService {
   constructor(private http:HttpClient) { }
 
   postFeedback(data:any){
-    //return this.http.post<any>("http://127.0.0.1:8000/feedbacks", data)
     return this.http.post<any>("https://feedback-form-backend.herokuapp.com/feedbacks", data)
     .pipe(map((res:any)=>{
       return res;
